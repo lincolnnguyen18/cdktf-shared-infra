@@ -37,18 +37,18 @@ Copy the following files to the root directory:
 * tsconfig.json
 
 Delete the following folders:
-* __tests__
+* \_\_tests\_\_
 
 Copy the following folders to the root directory:
 * src
 * .github
 
 In `cdktf.json`, change
-```
+```json
 "app": "npx ts-node main.ts"
 ```
 to
-```
+```json
 "app": "npx ts-node src/main.ts"
 ```
 
@@ -62,6 +62,7 @@ Then,
 * Initialize the git repository
 * Publish to GitHub
 * Set PAT secret in GitHub repository settings
+* Create SSH key named default-rsa in Hetzner Cloud
 
 # Commands
 ```bash

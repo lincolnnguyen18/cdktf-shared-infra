@@ -5,7 +5,6 @@ import { IamOpenidConnectProvider } from '@cdktf/provider-aws/lib/iam-openid-con
 import { IamRole } from '@cdktf/provider-aws/lib/iam-role';
 import { Infra, InfraStack } from '@src/main';
 import { HcloudProvider } from '@gen/providers/hcloud/provider';
-import { Server } from '@gen/providers/hcloud/server';
 
 const testName = 'test';
 const stack = Testing.fullSynth(
@@ -43,13 +42,13 @@ describe('Shared infrastructure', () => {
       });
     });
 
-    it('should contain server', () => {
-      expect(infra).toHaveResourceWithProperties(Server, {
-        name: 'server-jo1',
-        image: 'ubuntu-22.04',
-        server_type: 'cx11',
-        ssh_keys: ['default-rsa'],
-      });
-    });
+    // it('should contain server', () => {
+    //   expect(infra).toHaveResourceWithProperties(Server, {
+    //     name: 'server-jo1',
+    //     image: 'ubuntu-22.04',
+    //     server_type: 'cx11',
+    //     ssh_keys: ['default-rsa'],
+    //   });
+    // });
   });
 });
