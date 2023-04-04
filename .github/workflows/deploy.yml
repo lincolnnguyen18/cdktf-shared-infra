@@ -11,7 +11,10 @@ jobs:
       id-token: write
       contents: read
     env:
-      PROJECT_NAME: ${{ github.event.repository.name }}
+      ENV_FILE_S3_URL: s3://manually-created-bucket-s3o/env-files/cdktf-shared-infra.env
+      USER_NAME: ${{ github.event.repository.owner.login }}
+      GITHUB_IAM_ROLE_ARN: arn:aws:iam::542773719222:role/github_actions_role
+      AWS_REGION: us-east-1
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -36,21 +39,14 @@ jobs:
       - name: Install cdktf
         run: npm install -g cdktf-cli@latest
 
-      - name: Checkout env-variables repository
-        uses: actions/checkout@v3
-        with:
-          repository: lincolnnguyen18/env-variables
-          token: ${{ secrets.PAT }}
-          path: env-variables
-
       - name: Set up aws credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::542773719222:role/github_actions_role
-          aws-region: us-east-1
+          role-to-assume: ${{ env.GITHUB_IAM_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Copy .env file
-        run: cp $GITHUB_WORKSPACE/env-variables/${{ env.PROJECT_NAME }}/.env .
+        run: aws s3 cp ${{ env.ENV_FILE_S3_URL }} .
 
       - name: Run npm install
         run: npm i

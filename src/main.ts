@@ -12,8 +12,8 @@ export class Infra extends Construct {
     // Providers
     new S3Backend(this, {
       bucket: environment.S3_BACKEND_BUCKET_NAME,
-      key: `${environment.PROJECT_NAME}/terraform.tfstate`,
-      region: environment.AWS_REGION,
+      key: environment.S3_BACKEND_BUCKET_KEY,
+      region: environment.S3_BACKEND_AWS_REGION,
     });
 
     new AwsProvider(this, 'aws_provider', {
@@ -32,10 +32,10 @@ export class InfraStack extends TerraformStack {
   constructor (scope: Construct, id: string) {
     super(scope, id);
 
-    new Infra(this, environment.PROJECT_NAME);
+    new Infra(this, 'infra');
   }
 }
 
 const app = new App();
-new InfraStack(app, environment.PROJECT_NAME);
+new InfraStack(app, 'infra_stack');
 app.synth();

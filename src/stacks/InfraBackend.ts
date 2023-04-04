@@ -1,3 +1,4 @@
+import environment from '@src/common/environment';
 import GitHubActionsRole from '@src/components/GitHubActionsRole';
 import { Construct } from 'constructs';
 
@@ -6,8 +7,8 @@ export default class SharedInfraBackend extends Construct {
     super(scope, id);
 
     new GitHubActionsRole(this, 'github_actions_role', {
-      organization: 'lincolnnguyen18',
-      thumbprint: '6938fd4d98bab03faadb97b34396831e3780aea1',
+      organization: environment.GITHUB_USERNAME,
+      thumbprint: environment.GITHUB_OIDC_THUMBPRINT,
     });
 
     // new Server(this, 'server', {

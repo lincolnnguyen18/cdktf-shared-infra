@@ -30,12 +30,12 @@ Delete the following files/folders:
 * \_\_tests\_\_
 
 Copy the following files/folders to the root directory:
-* Create yourself
+* Create yourself and store in an S3 bucket (look at `src/common/environment.ts` for details)
   * .env
 * Copy from `general/eslint-non-react`
   * .eslintrc
   * .eslintignore
-* Copy from `project-specific/shared-infra`
+* Copy from `project-specific/cdktf-shared-infra`
   * .gitignore
   * jest.config.js
   * tsconfig.json
@@ -59,9 +59,15 @@ In `package.json`, add the following script:
 Then,
 * Run Jest: Setup Extension in VSCode
 * Initialize the git repository
-* Publish to GitHub
-* Set PAT secret in GitHub repository settings
 * Create SSH key named default-rsa in Hetzner Cloud
+* Create S3 bucket for storing .env file and Terraform state
+* Make sure all .env variables are set according to src/common/environment.ts
+* Upload .env file to S3 bucket
+* Publish to GitHub without GitHub Actions
+* Get GITHUB_OIDC_THUMBPRINT from AWS console as documented in src/common/environment.ts
+* Deploy terraform stack to create GitHub Actions IAM role
+* Set GITHUB_IAM_ROLE_ARN, ENV_FILE_S3_URL, and AWS_REGION in the env block of .github/workflows/deploy.yml
+* Update repository to use GitHub Actions
 
 # Commands
 ```bash
