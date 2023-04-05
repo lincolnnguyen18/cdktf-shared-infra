@@ -69,7 +69,11 @@ jobs:
         run: |
           aws s3 cp ${{ env.SSH_PRIVATE_KEY_S3_URL }} ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
+
+      - name: Copy deploy.sh to server
+        run: |
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ./src/server-files/deploy.sh root@${{ env.SERVER_IP }}:/root/scripts/deploy.sh
       
       - name: Execute ssh commands
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@${{ env.SERVER_IP }} "./src/server-files/deploy.sh"
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@${{ env.SERVER_IP }} "chmod +x /root/scripts/deploy.sh && /root/scripts/deploy.sh"
