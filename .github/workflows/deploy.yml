@@ -16,30 +16,29 @@ jobs:
       USER_NAME: ${{ github.event.repository.owner.login }}
       GITHUB_IAM_ROLE_ARN: arn:aws:iam::542773719222:role/github_actions_role
       AWS_REGION: us-east-1
-      SERVER_IP: 65.109.172.137
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # - name: Install nodejs
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: latest
+      - name: Install nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
 
-      # - name: Install terraform
-      #   run: |
-      #     sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
-      #     wget -O- https://apt.releases.hashicorp.com/gpg | \
-      #     gpg --dearmor | \
-      #     sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
-      #     echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
-      #     https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
-      #     sudo tee /etc/apt/sources.list.d/hashicorp.list
-      #     sudo apt update
-      #     sudo apt-get install terraform
+      - name: Install terraform
+        run: |
+          sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+          wget -O- https://apt.releases.hashicorp.com/gpg | \
+          gpg --dearmor | \
+          sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+          https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+          sudo tee /etc/apt/sources.list.d/hashicorp.list
+          sudo apt update
+          sudo apt-get install terraform
 
-      # - name: Install cdktf
-      #   run: npm install -g cdktf-cli@latest
+      - name: Install cdktf
+        run: npm install -g cdktf-cli@latest
 
       - name: Set up aws credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -47,37 +46,20 @@ jobs:
           role-to-assume: ${{ env.GITHUB_IAM_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
-      # - name: Copy .env file
-      #   run: aws s3 cp ${{ env.ENV_FILE_S3_URL }} .env
+      - name: Copy .env file
+        run: aws s3 cp ${{ env.ENV_FILE_S3_URL }} .env
 
-      # - name: Run npm install
-      #   run: npm i
+      - name: Run npm install
+        run: npm i
 
-      # - name: Run cdktf get
-      #   run: cdktf get
+      - name: Run cdktf get
+        run: cdktf get
 
-      # - name: Run jest
-      #   run: npm run test
+      - name: Run jest
+        run: npm run test
 
-      # - name: Run eslint
-      #   run: npm run lint
+      - name: Run eslint
+        run: npm run lint
 
-      # - name: Run cdktf deploy
-      #   run: cdktf deploy --auto-approve
-
-      - name: Download private ssh key from S3
-        run: |
-          aws s3 cp ${{ env.SSH_PRIVATE_KEY_S3_URL }} ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-
-      # - name: Copy deploy.sh to server
-      #   run: |
-      #     scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ./src/server-files/deploy.sh root@${{ env.SERVER_IP }}:/root/scripts/deploy.sh
-      
-      # - name: Execute ssh commands
-      #   run: |
-      #     ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@${{ env.SERVER_IP }} "chmod +x /root/scripts/deploy.sh && /root/scripts/deploy.sh"
-
-      - name: Execute ssh commands
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa root@${{ env.SERVER_IP }} "$(cat ./src/server-files/deploy.sh)"
+      - name: Run cdktf deploy
+        run: cdktf deploy --auto-approve

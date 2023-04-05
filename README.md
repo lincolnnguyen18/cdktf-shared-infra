@@ -88,7 +88,7 @@ docker run -d \
   --name cassandra \
   cassandra
 # connect to cassandra
-docker run -it --rm cassandra:latest cqlsh $IP_ADDRESS 9042
+docker run -it --rm cassandra:latest cqlsh 65.109.172.137 9042
 # view logs
 docker logs cassandra
 ```

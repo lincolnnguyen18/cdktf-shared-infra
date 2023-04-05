@@ -17,7 +17,7 @@ export class Infra extends Construct {
     });
 
     new AwsProvider(this, 'aws_provider', {
-      region: environment.AWS_REGION,
+      region: environment.AWS_DEFAULT_REGION,
     });
 
     new HcloudProvider(this, 'hcloud_provider', {
