@@ -18,6 +18,8 @@ runcmd:
   - . /root/.profile && aws s3 sync ${environment.SERVER_FILES_S3_URL} /root/server-files
   - cd /root/server-files && chmod +x ./deploy.sh && ./deploy.sh
 `;
+console.log(userData);
+console.log(environment);
 
 export default class SharedInfraBackend extends Construct {
   constructor (scope: Construct, id: string) {
