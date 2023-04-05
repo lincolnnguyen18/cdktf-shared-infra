@@ -16,6 +16,7 @@ export default class SharedInfraBackend extends Construct {
     //   image: 'ubuntu-22.04',
     //   serverType: 'cx11',
     //   sshKeys: ['default-rsa'],
+    //   firewallIds: [818236],
     // });
   }
 }

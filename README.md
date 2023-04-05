@@ -70,9 +70,25 @@ Then,
 * Update repository to use GitHub Actions
 
 # Commands
+Listed in no particular order.
 ```bash
 # Running cdktf commands for dev environment
 cdktf diff
 # Running cdktf commands for a specific environment
 TARGET_ENV=staging cdktf diff
+
+# Install Docker
+sudo apt-get update -y
+sudo apt-get install docker.io -y
+
+# Start cassandra
+docker run -d \
+  -e CASSANDRA_LISTEN_ADDRESS=127.0.0.1 \
+  -p 9042:9042 \
+  --name cassandra \
+  cassandra
+# connect to cassandra
+docker run -it --rm cassandra:latest cqlsh $IP_ADDRESS 9042
+# view logs
+docker logs cassandra
 ```
