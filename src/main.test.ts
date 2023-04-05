@@ -1,5 +1,4 @@
 import 'cdktf/lib/testing/adapters/jest';
-import environment from '@src/common/environment';
 import { Testing } from 'cdktf';
 import { AwsProvider } from '@cdktf/provider-aws/lib/provider';
 import { IamOpenidConnectProvider } from '@cdktf/provider-aws/lib/iam-openid-connect-provider';
@@ -24,23 +23,6 @@ describe('Shared infrastructure', () => {
 
     it('check if this can be planned', () => {
       expect(stack).toPlanSuccessfully();
-    });
-
-    it('has valid environment variables', () => {
-      // all fields are not undefined or null
-      expect(environment.S3_BACKEND_BUCKET_NAME != null).toBeTruthy();
-      expect(environment.S3_BACKEND_BUCKET_KEY != null).toBeTruthy();
-      expect(environment.S3_BACKEND_AWS_REGION != null).toBeTruthy();
-      expect(environment.AWS_DEFAULT_REGION != null).toBeTruthy();
-      expect(environment.HETZNER_TOKEN != null).toBeTruthy();
-      expect(environment.GITHUB_USERNAME != null).toBeTruthy();
-      expect(environment.GITHUB_OIDC_THUMBPRINT != null).toBeTruthy();
-
-      expect(environment.USER_DATA_AWS_ACCESS_KEY_ID != null).toBeTruthy();
-      expect(environment.USER_DATA_AWS_SECRET_ACCESS_KEY != null).toBeTruthy();
-      expect(environment.USER_DATA_AWS_DEFAULT_OUTPUT != null).toBeTruthy();
-      expect(environment.USER_DATA_AWS_DEFAULT_REGION != null).toBeTruthy();
-      expect(environment.SERVER_FILES_S3_URL != null).toBeTruthy();
     });
   });
 

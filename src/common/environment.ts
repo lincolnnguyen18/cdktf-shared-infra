@@ -60,4 +60,15 @@ const environment: Environment = {
   SERVER_FILES_S3_URL: process.env.SERVER_FILES_S3_URL as string,
 };
 
+// make sure all fields are defined
+const notDefinedFields: string[] = [];
+for (const key of Object.keys(environment)) {
+  if (environment[key as keyof Environment] == null) {
+    notDefinedFields.push(key);
+  }
+}
+if (notDefinedFields.length > 0) {
+  throw new Error(`Environment variables ${notDefinedFields.join(', ')} are not defined`);
+}
+
 export default environment;
