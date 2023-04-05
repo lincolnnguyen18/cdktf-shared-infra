@@ -33,9 +33,10 @@ interface Environment {
   GITHUB_OIDC_THUMBPRINT: string;
 
   // AWS credentials
-  AWS_ACCESS_KEY_ID: string;
-  AWS_SECRET_ACCESS_KEY: string;
-  AWS_DEFAULT_OUTPUT: string;
+  USER_DATA_AWS_ACCESS_KEY_ID: string;
+  USER_DATA_AWS_SECRET_ACCESS_KEY: string;
+  USER_DATA_AWS_DEFAULT_OUTPUT: string;
+  USER_DATA_AWS_DEFAULT_REGION: string;
   
   /**
    * The URL of the S3 bucket where the server-files folder is stored.
@@ -52,9 +53,10 @@ const environment: Environment = {
   GITHUB_USERNAME: process.env.GITHUB_USERNAME as string,
   GITHUB_OIDC_THUMBPRINT: process.env.GITHUB_OIDC_THUMBPRINT as string,
 
-  AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID as string,
-  AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY as string,
-  AWS_DEFAULT_OUTPUT: process.env.AWS_DEFAULT_OUTPUT as string,
+  USER_DATA_AWS_ACCESS_KEY_ID: process.env.USER_DATA_AWS_ACCESS_KEY_ID as string,
+  USER_DATA_AWS_SECRET_ACCESS_KEY: process.env.USER_DATA_AWS_SECRET_ACCESS_KEY as string,
+  USER_DATA_AWS_DEFAULT_OUTPUT: process.env.USER_DATA_AWS_DEFAULT_OUTPUT as string,
+  USER_DATA_AWS_DEFAULT_REGION: process.env.USER_DATA_AWS_DEFAULT_REGION as string,
   SERVER_FILES_S3_URL: process.env.SERVER_FILES_S3_URL as string,
 };
 

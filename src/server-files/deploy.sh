@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# echo "Installing Docker"
+# sudo apt-get update -y
+# sudo apt-get install docker.io -y
+
 daemonJson=$(cat <<'EOF'
 {
   "iptables": true,
@@ -21,3 +25,6 @@ sudo docker swarm init
 
 echo "Deploying stack"
 sudo docker stack deploy --compose-file docker-compose.yml stack
+
+# echo "Installing Docker Compose"
+# sudo apt-get install docker-compose -y

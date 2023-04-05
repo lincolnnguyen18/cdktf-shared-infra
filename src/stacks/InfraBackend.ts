@@ -11,10 +11,10 @@ packages:
 package_update: true
 package_upgrade: true
 runcmd:
-  - echo "export AWS_ACCESS_KEY_ID=${environment.AWS_ACCESS_KEY_ID}" >> /root/.profile
-  - echo "export AWS_SECRET_ACCESS_KEY=${environment.AWS_SECRET_ACCESS_KEY}" >> /root/.profile
-  - echo "export AWS_DEFAULT_REGION=${environment.AWS_DEFAULT_REGION}" >> /root/.profile
-  - echo "export AWS_DEFAULT_OUTPUT=${environment.AWS_DEFAULT_OUTPUT}" >> /root/.profile
+  - echo "export AWS_ACCESS_KEY_ID=${environment.USER_DATA_AWS_ACCESS_KEY_ID}" >> /root/.profile
+  - echo "export AWS_SECRET_ACCESS_KEY=${environment.USER_DATA_AWS_SECRET_ACCESS_KEY}" >> /root/.profile
+  - echo "export AWS_DEFAULT_REGION=${environment.USER_DATA_AWS_DEFAULT_REGION}" >> /root/.profile
+  - echo "export AWS_DEFAULT_OUTPUT=${environment.USER_DATA_AWS_DEFAULT_OUTPUT}" >> /root/.profile
   - . /root/.profile && aws s3 sync ${environment.SERVER_FILES_S3_URL} /root/server-files
   - cd /root/server-files && chmod +x ./deploy.sh && ./deploy.sh
 `;
